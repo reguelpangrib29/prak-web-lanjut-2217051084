@@ -38,9 +38,14 @@
                     </svg>
                 </div>
 
+<<<<<<< HEAD
+                <div class="flex-justify center-mt-4">
+                    <h1>Reguel Andreas Agustinus Pangaribuan - 2217051084
+=======
                 <div class="flex justify-center mt-4">
                     <h1 class="text-xl font-semibold text-gray-900 dark:text-white">
                         Reguel Andreas Agustinus Pangaribuan - 2217051084
+>>>>>>> 186b1503fcdfad952c3d0eb76fd36dcec8bebdbf
                     </h1>
                 </div>
 
