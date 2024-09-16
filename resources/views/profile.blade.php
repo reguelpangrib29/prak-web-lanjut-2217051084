@@ -15,7 +15,7 @@
             <div class="relative w-32 h-32 mx-auto mb-6">
                 <!-- Tampilkan gambar profil jika ada, jika tidak tampilkan ikon orang sebagai placeholder -->
                 <img class="w-full h-full rounded-full shadow-lg border-4 border-white object-cover" 
-                    src="{{ isset($profile_picture) ? asset('storage/' . $profile_picture) : asset('images/avatars/avatar-user.png') }}"
+                    src="{{ isset($profile_picture) ? asset('storage/' . $profile_picture) : asset('assets/img/Gaurav Kavat Profile.jpeg') }}"
                     alt="Profile Picture">
 
                 <!-- Ikon unggah profile-->
