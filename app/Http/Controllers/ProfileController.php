@@ -32,5 +32,4 @@ class ProfileController extends Controller
 
         return back()->with('success', 'Foto profil berhasil diunggah. ')->with('profile_picture', $path);
     }
-
 }
