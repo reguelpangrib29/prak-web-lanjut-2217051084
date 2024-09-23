@@ -38,12 +38,12 @@
                 <span class="text-gray-700">{{ $nama }}</span>
             </div>
             <div class="bg-blue-100 p-3 rounded-lg mb-4 shadow-inner">
-                <span class="block text-lg font-semibold text-blue-800">Kelas</span>
-                <span class="text-gray-700">{{ $kelas }}</span>
-            </div>
-            <div class="bg-blue-100 p-3 rounded-lg mb-4 shadow-inner">
                 <span class="block text-lg font-semibold text-blue-800">NPM</span>
                 <span class="text-gray-700">{{ $npm }}</span>
+            </div>
+            <div class="bg-blue-100 p-3 rounded-lg mb-4 shadow-inner">
+                <span class="block text-lg font-semibold text-blue-800">Kelas</span>
+                <span class="text-gray-700">{{ $nama_kelas ?? 'Kelas tidak ditemukan' }}</span>
             </div>
         </form>
     </div>

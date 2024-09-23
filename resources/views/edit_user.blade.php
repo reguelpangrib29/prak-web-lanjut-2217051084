@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create User</title>
-    <!-- Vite Directive untuk Vanilla CSS -->
+    <title>Edit User</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
@@ -132,10 +131,14 @@
 <body>
     <div class="frame">
         <div class="p-card u-align--center">
-            <h1>Create User</h1>
+            <h1>Edit User</h1>
+
+            <!-- Memanggil form yang di-include dari _form.blade.php -->
             @include('_form', [
-                'action' => route('user.store'), // action menuju route penyimpanan user
-                'kelas' => $kelas, // data kelas dikirim ke partial form
+                'action' => route('user.update', $user->id), // action untuk update user
+                'method' => 'PUT', // method PUT untuk update
+                'user' => $user, // data user yang sedang diedit
+                'kelas' => $kelas, // data kelas
             ])
         </div>
     </div>
