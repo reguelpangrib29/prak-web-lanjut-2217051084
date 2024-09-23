@@ -15,7 +15,7 @@
             <div class="relative w-32 h-32 mx-auto mb-6">
                 <!-- Tampilkan gambar profil jika ada, jika tidak tampilkan ikon orang sebagai placeholder -->
                 <img class="w-full h-full rounded-full shadow-lg border-4 border-white object-cover" 
-                    src="{{ isset($profile_picture) ? asset('storage/' . $profile_picture) : asset('images/avatars/avatar-user.png') }}"
+                    src="{{ isset($profile_picture) ? asset('storage/' . $profile_picture) : asset('assets/img/Gaurav Kavat Profile.jpeg') }}"
                     alt="Profile Picture">
 
                 <!-- Ikon unggah profile-->
@@ -38,12 +38,12 @@
                 <span class="text-gray-700">{{ $nama }}</span>
             </div>
             <div class="bg-blue-100 p-3 rounded-lg mb-4 shadow-inner">
-                <span class="block text-lg font-semibold text-blue-800">Kelas</span>
-                <span class="text-gray-700">{{ $kelas }}</span>
-            </div>
-            <div class="bg-blue-100 p-3 rounded-lg mb-4 shadow-inner">
                 <span class="block text-lg font-semibold text-blue-800">NPM</span>
                 <span class="text-gray-700">{{ $npm }}</span>
+            </div>
+            <div class="bg-blue-100 p-3 rounded-lg mb-4 shadow-inner">
+                <span class="block text-lg font-semibold text-blue-800">Kelas</span>
+                <span class="text-gray-700">{{ $nama_kelas ?? 'Kelas tidak ditemukan' }}</span>
             </div>
         </form>
     </div>
