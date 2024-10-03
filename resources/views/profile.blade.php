@@ -1,27 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Profile</title>
-    @vite('resources/css/app.css')
-</head>
+@section('content')
 
-<body class="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-500 to-purple-600">
-    <div class="bg-white p-8 rounded-2xl shadow-2xl max-w-sm text-center transform hover:scale-105 transition-transform duration-500 relative">
+
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 relative overflow-hidden">
+    <!-- Elemen background dekoratif -->
+    <div class="absolute w-64 h-64 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-50 top-1/3 left-1/4 animate-pulse"></div>
+    <div class="absolute w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-50 top-1/4 right-1/3 animate-pulse"></div>
+    <div class="absolute w-48 h-48 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-50 bottom-1/3 left-1/3 animate-pulse"></div>
+
+    
+    <div class="bg-white p-8 rounded-2xl shadow-2xl max-w-sm mx-auto text-center transform hover:scale-105 transition-transform duration-500 relative z-10">
         <form action="{{ route('upload.profile.picture') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="relative w-32 h-32 mx-auto mb-6">
                 <!-- Tampilkan gambar profil jika ada, jika tidak tampilkan ikon orang sebagai placeholder -->
-                <img class="w-full h-full rounded-full shadow-lg border-4 border-white object-cover" 
+                <img class="w-full h-full rounded-full shadow-lg border-4 border-blue-500 object-cover"
                     src="{{ isset($profile_picture) ? asset('storage/' . $profile_picture) : asset('assets/img/Gaurav Kavat Profile.jpeg') }}"
                     alt="Profile Picture">
 
-                <!-- Ikon unggah profile-->
-                <label for="profile_picture" class="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full p-2 cursor-pointer shadow-md">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354l3.293 3.293-1.414 1.414L12 7.414l-1.879 1.879-1.414-1.414L12 4.354zM12 11v7m-3.5-3.5H7m10 0h-1.5m-5.5 3a4 4 0 100-8 4 4 0 000 8z" />
+                <label for="profile_picture"
+                    class="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full p-2 cursor-pointer shadow-md transition duration-300 ease-in-out hover:bg-blue-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 4.354l3.293 3.293-1.414 1.414L12 7.414l-1.879 1.879-1.414-1.414L12 4.354zM12 11v7m-3.5-3.5H7m10 0h-1.5m-5.5 3a4 4 0 100-8 4 4 0 000 8z" />
                     </svg>
                 </label>
 
@@ -47,6 +50,6 @@
             </div>
         </form>
     </div>
-</body>
+</div>
 
-</html>
+@endsection

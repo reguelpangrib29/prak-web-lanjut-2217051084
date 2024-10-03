@@ -1,3 +1,4 @@
+<!-- _form.blade.php -->
 <form action="{{ $action }}" method="POST" class="p-form p-form--stacked">
     @csrf
     <!-- Untuk update, menambahkan method PUT -->
@@ -25,7 +26,7 @@
 
     <!-- Pilihan Kelas -->
     <div class="p-form__group">
-        <label for="kelas" class="p-form__label">Kelas:</label>
+        <label for="kelas_id" class="p-form__label">Kelas:</label>
         <select name="kelas_id" id="kelas_id" required>
             <option value="">-- Pilih Kelas --</option>
             @foreach($kelas as $kelasItem)
