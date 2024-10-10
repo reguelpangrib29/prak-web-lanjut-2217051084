@@ -28,6 +28,7 @@
                     <th class="py-3 px-4 uppercase font-semibold text-sm border border-gray-200">Nama</th>
                     <th class="py-3 px-4 uppercase font-semibold text-sm border border-gray-200">NPM</th>
                     <th class="py-3 px-4 uppercase font-semibold text-sm border border-gray-200">Kelas</th>
+                    <th class="py-3 px-4 uppercase font-semibold text-sm border border-gray-200">Foto</th>
                     <th class="py-3 px-4 uppercase font-semibold text-sm border border-gray-200">Aksi</th>
                 </tr>
             </thead>
@@ -38,12 +39,28 @@
                     <td class="py-3 px-4 border border-gray-200">{{ $user['nama'] }}</td>
                     <td class="py-3 px-4 border border-gray-200">{{ $user['npm'] }}</td>
                     <td class="py-3 px-4 border border-gray-200">{{ $user['nama_kelas'] }}</td>
+                   
+                    <td class="py-3 px-4 border border-gray-200 text-center">
+                        @if($user['foto'])
+                            <img src="{{ asset('storage/uploads/' . $user['foto']) }}" alt="Foto User" width="100">
+                        @else
+                            <span class="text-gray-500">No Image</span>
+                        @endif
+                    </td>
                     <td class="py-3 px-4 flex items-center justify-center border border-gray-200 space-x-2">
                         <a href="{{ route('user.edit', $user->id) }}" class="flex items-center bg-yellow-400 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded-lg shadow-lg transform hover:scale-110 transition duration-500 ease-in-out">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M17.414 2.586a2 2 0 00-2.828 0L6.707 10.464a1 1 0 00-.263.45l-1 4a1 1 0 001.263 1.263l4-1a1 1 0 00.45-.263l7.879-7.879a2 2 0 000-2.828l-1.586-1.586zM10 14H9v1h1v-1zm2-2h-1v1h1v-1zm-2-2h1v1H9v-1zm-1 1v1H7v-1h1z" />
                             </svg>
                             Edit
+                        </a>
+
+                        <!-- Link Detail ke halaman show -->
+                        <a href="{{ route('user.show', $user->id) }}" class="flex items-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-lg shadow-lg transform hover:scale-110 transition duration-500 ease-in-out">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" />
+                            </svg>
+                            Detail
                         </a>
                         
                         <form action="{{ route('user.destroy', $user->id) }}" method="POST">

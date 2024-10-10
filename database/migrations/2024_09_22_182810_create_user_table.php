@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('npm');
             $table->foreignId('kelas_id')->constrained();
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
     }

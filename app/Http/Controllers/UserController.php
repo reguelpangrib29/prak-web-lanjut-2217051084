@@ -87,14 +87,12 @@ class UserController extends Controller
             return redirect()->route('user.list')->with('error', 'User tidak ditemukan.');
         }
 
-        // Update data user
         $user->update([
             'nama' => $validatedData['nama'],
             'npm' => $validatedData['npm'],
             'kelas_id' => $validatedData['kelas_id'],
         ]);
 
-        // Redirect kembali ke halaman list user dengan pesan sukses
         return redirect()->route('user.list')->with('success', 'User berhasil diperbarui!');
     }
 
@@ -107,21 +105,59 @@ class UserController extends Controller
             return redirect()->route('user.list')->with('error', 'User tidak ditemukan.');
         }
 
-        // Hapus user dari database
         $user->delete();
 
-        // Redirect kembali ke halaman list user dengan pesan sukses
         return redirect()->route('user.list')->with('success', 'User berhasil dihapus!');
     }
 
+    public function show($id)
+    {
+        // Mengambil data user berdasarkan ID
+        $user = $this->userModel->getUser($id);
+
+        if (!$user) {
+            return redirect()->route('user.list')->with('error', 'User tidak ditemukan.');
+        }
+
+        // Mengirim data user ke view profile
+        $data = [
+            'title' => 'Profile',
+            'nama' => $user->nama,
+            'npm' => $user->npm,
+            'nama_kelas' => $user->nama_kelas,
+            'profile_picture' => $user->foto,
+        ];
+
+        return view('profile', $data);
+    }
+
+
     public function store(StoreUserRequest $request)
     {
-        // Mengambil data yang dikirim dari form menggunakan input()
-        $this->userModel->create([
-            'nama' => $request->input('nama'),
-            'npm' => $request->input('npm'),
-            'kelas_id' => $request->input('kelas_id'),
+        // validasi input
+        $request->validate([
+            'nama' => 'required',
+            'npm' => 'required',
+            'kelas_id' => 'required',
+            'foto' => 'image|file|max:2048', // validasi foto
         ]);
+
+        // Proses upload foto
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('uploads', $filename); // Menyimpan file ke storage
+
+            // Simpan data user ke database
+            $this->userModel->create([
+                'nama' => $request->input('nama'),
+                'npm' => $request->input('npm'),
+                'kelas_id' => $request->input('kelas_id'),
+                'foto' => $filename, // Menyimpan nama file ke database
+            ]);
+        }
+
+        return redirect()->to('/user/list')->with('success', 'User berhasil ditambahkan!');
 
         // Validasi data
         $validatedData = $request->validated();
@@ -138,7 +174,6 @@ class UserController extends Controller
             'nama_kelas' => $user->kelas->nama_kelas ?? 'Kelas tidak ditemukan',
         ]);
 
-        return redirect()->route('user.list')->with('success', 'User berhasil ditambahkan!');
     }
 
 }
