@@ -94,9 +94,11 @@
         background: rgba(255, 255, 255, 0.3); 
         box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
         backdrop-filter: blur(10px); 
-        width: 480px;
+        width: 450px;
         display: flex;
         justify-content: center;
+        margin-top: 30px;
+        margin-bottom: 30px;
     }
 
     .p-card {
@@ -106,7 +108,7 @@
         padding: 30px;
         width: 100%;
         max-width: 400px;
-        margin: 20px;
+        margin: 0 auto;
         animation: fadeIn 1.5s ease-out;
     }
 

@@ -60,81 +60,91 @@ class UserController extends Controller
     public function edit($id)
     {
         // Mencari user berdasarkan ID
-        $user = $this->userModel->find($id);
+        $user = $this->userModel->findOrFail($id);
 
-        if (!$user) {
-            return redirect()->route('user.list')->with('error', 'User tidak ditemukan.');
-        }
-
+        // Mengambil data kelas untuk dropdown
         $kelas = $this->kelasModel->getKelas();
 
-        // Mengirim data user dan kelas ke view edit_user
-        return view('edit_user', [
-            'user' => $user,
-            'kelas' => $kelas,
-        ]);
+        // Set title untuk halaman edit
+        $title = 'Edit User';
+
+        // Mengirim data ke view edit_user dengan fungsi compact
+        return view('edit_user', compact('user', 'kelas', 'title'));
     }
 
     public function update(StoreUserRequest $request, $id)
     {
         
+        // Mencari user berdasarkan ID
+        $user = $this->userModel->findOrFail($id);
+
+        // Validasi data dari request
         $validatedData = $request->validated();
 
-        // Mencari user berdasarkan ID
-        $user = $this->userModel->find($id);
+        // Update data user lainnya
+        $user->nama = $validatedData['nama'];
+        $user->npm = $validatedData['npm'];
+        $user->kelas_id = $validatedData['kelas_id'];
 
-        if (!$user) {
-            return redirect()->route('user.list')->with('error', 'User tidak ditemukan.');
+        // Cek apakah ada file foto yang di-upload
+        if ($request->hasFile('foto')) {
+            // Ambil nama file foto lama dari database
+            $oldFilename = $user->foto;
+
+            // Hapus foto lama jika ada
+            if ($oldFilename) {
+                $oldFilePath = public_path('storage/uploads/' . $oldFilename);
+                // Cek apakah file lama ada dan hapus
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath); // Hapus foto lama dari folder
+                }
+            }
+
+            // Simpan file baru dengan storeAs
+            $file = $request->file('foto');
+            $newFilename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('uploads', $newFilename, 'public'); // Menyimpan file ke folder uploads dalam storage/public
+
+            // Update nama file di database
+            $user->foto = $newFilename;
         }
 
-        $user->update([
-            'nama' => $validatedData['nama'],
-            'npm' => $validatedData['npm'],
-            'kelas_id' => $validatedData['kelas_id'],
-        ]);
+        // Simpan perubahan pada user
+        $user->save();
 
-        return redirect()->route('user.list')->with('success', 'User berhasil diperbarui!');
+        return redirect()->route('user.list')->with('success', 'User berhasil diupdate!');
     }
 
     public function destroy($id)
     {
         // Mencari user berdasarkan ID
-        $user = $this->userModel->find($id);
+        $user = $this->userModel->findOrFail($id);
 
-        if (!$user) {
-            return redirect()->route('user.list')->with('error', 'User tidak ditemukan.');
-        }
-
+        // Hapus user dari database
         $user->delete();
 
-        return redirect()->route('user.list')->with('success', 'User berhasil dihapus!');
+        // Redirect dengan pesan sukses
+        return redirect()->route('user.list')->with('success', 'User Berhasil dihapus');
     }
 
     public function show($id)
     {
-        // Mengambil data user berdasarkan ID
-        $user = $this->userModel->getUser($id);
+        // Mencari user berdasarkan ID
+        $user = $this->userModel->findOrFail($id);
 
-        if (!$user) {
-            return redirect()->route('user.list')->with('error', 'User tidak ditemukan.');
-        }
+        // Mencari data kelas berdasarkan kelas_id user
+        $kelas = $this->kelasModel->find($user->kelas_id);
 
-        // Mengirim data user ke view profile
-        $data = [
-            'title' => 'Profile',
-            'nama' => $user->nama,
-            'npm' => $user->npm,
-            'nama_kelas' => $user->nama_kelas,
-            'profile_picture' => $user->foto,
-        ];
+        // Set title untuk halaman detail
+        $title = 'Show User ' . $user->nama;
 
-        return view('profile', $data);
+        // Mengirim data ke view show_user dengan fungsi compact
+        return view('show_user', compact('user', 'kelas', 'title'));
     }
-
 
     public function store(StoreUserRequest $request)
     {
-        // validasi input
+        // Validasi input
         $request->validate([
             'nama' => 'required',
             'npm' => 'required',

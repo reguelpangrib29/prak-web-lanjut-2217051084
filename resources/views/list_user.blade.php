@@ -48,6 +48,7 @@
                         @endif
                     </td>
                     <td class="py-3 px-4 flex items-center justify-center border border-gray-200 space-x-2">
+                        <!-- Link Edit  -->
                         <a href="{{ route('user.edit', $user->id) }}" class="flex items-center bg-yellow-400 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded-lg shadow-lg transform hover:scale-110 transition duration-500 ease-in-out">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M17.414 2.586a2 2 0 00-2.828 0L6.707 10.464a1 1 0 00-.263.45l-1 4a1 1 0 001.263 1.263l4-1a1 1 0 00.45-.263l7.879-7.879a2 2 0 000-2.828l-1.586-1.586zM10 14H9v1h1v-1zm2-2h-1v1h1v-1zm-2-2h1v1H9v-1zm-1 1v1H7v-1h1z" />
@@ -55,18 +56,19 @@
                             Edit
                         </a>
 
-                        <!-- Link Detail ke halaman show -->
+                        <!-- Link View ke halaman show -->
                         <a href="{{ route('user.show', $user->id) }}" class="flex items-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-lg shadow-lg transform hover:scale-110 transition duration-500 ease-in-out">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" />
                             </svg>
-                            Detail
+                            View
                         </a>
                         
+                        <!-- Link Delete  -->
                         <form action="{{ route('user.destroy', $user->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="flex items-center bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded-lg shadow-lg transform hover:scale-110 transition duration-500 ease-in-out" onclick="return confirm('Yakin ingin menghapus user ini?')">
+                            <button type="submit" class="flex items-center bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded-lg shadow-lg transform hover:scale-110 transition duration-500 ease-in-out" onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?')">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M10 2a2 2 0 00-2 2v1H5.5a.5.5 0 000 1H6v10a2 2 0 002 2h4a2 2 0 002-2V6h.5a.5.5 0 000-1H12V4a2 2 0 00-2-2zM8 7a.5.5 0 00-.5.5v7a.5.5 0 001 0v-7A.5.5 0 008 7zm4 0a.5.5 0 00-.5.5v7a.5.5 0 001 0v-7A.5.5 0 0012 7z" clip-rule="evenodd" />
                                 </svg>
