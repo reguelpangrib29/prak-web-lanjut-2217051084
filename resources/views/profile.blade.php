@@ -2,7 +2,6 @@
 
 @section('head')
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Show User</title>
     @vite('resources/css/app.css')
 @endsection
 
