@@ -74,7 +74,6 @@ class UserController extends Controller
 
     public function update(StoreUserRequest $request, $id)
     {
-        
         // Mencari user berdasarkan ID
         $user = $this->userModel->findOrFail($id);
 
@@ -167,7 +166,7 @@ class UserController extends Controller
             ]);
         }
 
-        return redirect()->to('/user/list')->with('success', 'User berhasil ditambahkan!');
+        return redirect()->to('/')->with('success', 'User berhasil dibuat!');
 
         // Validasi data
         $validatedData = $request->validated();
