@@ -52,6 +52,21 @@
                 @enderror
             </div>
 
+            <!-- Pilihan Jurusan -->
+            <div class="p-form__group mb-4">
+                <label for="jurusan_id" class="p-form__label font-semibold text-gray-700">Jurusan:</label>
+                <select name="jurusan_id" id="jurusan_id" class="w-full p-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                    <option value="">-- Pilih Jurusan --</option>
+                    @foreach($jurusan as $jurusanItem)
+                    <option value="{{ $jurusanItem->id }}" {{ old('jurusan_id', $user->jurusan_id ?? '') == $jurusanItem->id ? 'selected' : '' }}>
+                        {{ $jurusanItem->nama_jurusan }}</option>
+                    @endforeach
+                </select>
+                @error('jurusan_id')
+                <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+
             <!-- Input Foto -->
             <div class="p-form__group mb-4">
                 <label for="foto" class="p-form__label font-semibold text-gray-700">Foto:</label>

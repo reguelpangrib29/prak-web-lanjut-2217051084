@@ -28,6 +28,8 @@
                     <th class="py-3 px-4 uppercase font-semibold text-sm border border-gray-200">Nama</th>
                     <th class="py-3 px-4 uppercase font-semibold text-sm border border-gray-200">NPM</th>
                     <th class="py-3 px-4 uppercase font-semibold text-sm border border-gray-200">Kelas</th>
+                    <th class="py-3 px-4 uppercase font-semibold text-sm border border-gray-200">Jurusan</th>
+                    <th class="py-3 px-4 uppercase font-semibold text-sm border border-gray-200">Fakultas</th>
                     <th class="py-3 px-4 uppercase font-semibold text-sm border border-gray-200">Foto</th>
                     <th class="py-3 px-4 uppercase font-semibold text-sm border border-gray-200">Aksi</th>
                 </tr>
@@ -35,14 +37,16 @@
             <tbody class="text-gray-700">
                 @foreach($users as $user)
                 <tr class="border-b border-gray-200 hover:bg-gradient-to-r from-gray-100 to-gray-200 transform hover:scale-105 transition duration-300 ease-in-out">
-                    <td class="w-20 py-3 px-4 text-center border border-gray-200">{{ $user['id'] }}</td>
-                    <td class="py-3 px-4 border border-gray-200">{{ $user['nama'] }}</td>
-                    <td class="py-3 px-4 border border-gray-200">{{ $user['npm'] }}</td>
-                    <td class="py-3 px-4 border border-gray-200">{{ $user['nama_kelas'] }}</td>
+                    <td class="w-20 py-3 px-4 text-center border border-gray-200">{{ $user->id }}</td>
+                    <td class="py-3 px-4 border border-gray-200">{{ $user->nama }}</td>
+                    <td class="py-3 px-4 border border-gray-200">{{ $user->npm }}</td>
+                    <td class="py-3 px-4 border border-gray-200">{{ $user->kelas->nama_kelas }}</td>
+                    <td class="py-3 px-4 border border-gray-200">{{ $user->jurusan->nama_jurusan }}</td>
+                    <td class="py-3 px-4 border border-gray-200">{{ $user->jurusan->fakultas->nama_fakultas ?? 'Fakultas Tidak Ditemukan' }}</td>
                    
                     <td class="py-3 px-4 border border-gray-200 text-center">
-                        @if($user['foto'])
-                            <img src="{{ asset('storage/uploads/' . $user['foto']) }}" alt="Foto User" width="100">
+                        @if($user->foto)
+                            <img src="{{ asset('storage/uploads/' . $user->foto) }}" alt="Foto User" width="100">
                         @else
                             <span class="text-gray-500">No Image</span>
                         @endif
