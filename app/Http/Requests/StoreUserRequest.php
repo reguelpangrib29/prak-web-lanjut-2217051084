@@ -23,7 +23,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'nama' => 'required|string|max:255',
-            'npm' => 'required|string|max:255|unique:users,npm,' . $this->route('user'),
+            'npm' => 'required|string|max:255|unique:user,npm,' . $this->route('user'),
             'kelas_id' => 'required|exists:kelas,id',
             'jurusan_id' => 'required|exists:jurusan,id',
         ];
