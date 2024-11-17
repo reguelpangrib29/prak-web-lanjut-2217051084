@@ -27,6 +27,9 @@
                 <h2 class="text-2xl font-bold text-gray-800 mb-2">{{ $nama }}</h2>
                 <p class="text-lg text-gray-600 mb-4">{{ $npm }}</p>
                 <p class="text-lg text-gray-600 mb-4">{{ $nama_kelas ?? 'Kelas tidak ditemukan' }}</p>
+                <p class="text-lg text-gray-600 mb-4">{{ $nama_jurusan ?? 'Jurusan tidak ditemukan' }}</p>
+                <p class="text-lg text-gray-600 mb-4">{{ $nama_fakultas ?? 'Fakultas tidak ditemukan' }}</p>
+
 
                 <hr class="my-4 border-t-4" style="border-color: rgba(0, 0, 0, 0.15);">
 

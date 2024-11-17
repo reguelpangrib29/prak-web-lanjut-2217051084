@@ -9,33 +9,43 @@ class UserModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'user';
+    protected $table = 'user'; 
+
     protected $guarded = ['id'];
 
     protected $fillable = [
         'nama',
         'npm',
         'kelas_id',
+        'jurusan_id',
         'foto',
     ];
 
-    public function getUser($id = null) {
+    public function getUser($id = null) 
+    {
         if ($id !== null) {
             return $this->join('kelas', 'kelas.id', '=', 'user.kelas_id')
-                        ->select('user.*', 'kelas.nama_kelas as nama_kelas')
+                        ->join('jurusan', 'jurusan.id', '=', 'user.jurusan_id')
+                        ->select('user.*', 'kelas.nama_kelas as nama_kelas', 'jurusan.nama_jurusan as nama_jurusan')
                         ->where('user.id', $id)
-                        ->first(); // Menggunakan first() untuk mengambil satu record
+                        ->first();
         }
-        
-        // Jika $id null, maka kembalikan seluruh data user
+
+        // Jika $id null, kembalikan seluruh data user
         return $this->join('kelas', 'kelas.id', '=', 'user.kelas_id')
-                    ->select('user.*', 'kelas.nama_kelas as nama_kelas')
+                    ->join('jurusan', 'jurusan.id', '=', 'user.jurusan_id')
+                    ->select('user.*', 'kelas.nama_kelas as nama_kelas', 'jurusan.nama_jurusan as nama_jurusan')
                     ->orderBy('user.id', 'asc')
                     ->get();
-    }    
+    }
 
-    public function kelas ()
+    public function kelas()
     {
         return $this->belongsTo(Kelas::class, 'kelas_id');
+    }
+
+    public function jurusan()
+    {
+        return $this->belongsTo(Jurusan::class, 'jurusan_id');
     }
 }

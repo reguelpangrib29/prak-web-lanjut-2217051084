@@ -23,8 +23,9 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'nama' => 'required|string|max:255',
-            'npm' => 'required|string|max:255|unique:user,npm',
+            'npm' => 'required|string|max:255|unique:user,npm,' . $this->route('user'),
             'kelas_id' => 'required|exists:kelas,id',
+            'jurusan_id' => 'required|exists:jurusan,id',
         ];
     }
 
@@ -41,6 +42,8 @@ class StoreUserRequest extends FormRequest
             'npm.unique' => 'This NPM is already registered. Please use another NPM.',
             'kelas_id.required' => 'The class field is required.',
             'kelas_id.exists' => 'The selected class is invalid.',
+            'jurusan_id.required' => 'The department field is required.',
+            'jurusan_id.exists' => 'The selected department is invalid.',
         ];
     }
 }

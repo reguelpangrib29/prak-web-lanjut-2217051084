@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\Kelas;
+use App\Models\Fakultas;
+use App\Models\Jurusan;
 use App\Models\UserModel;
 
 
@@ -45,17 +47,17 @@ class UserController extends Controller
 
         $kelas = $kelasModel->getKelas();
 
+        $kelas = Kelas::all();
+        $jurusan = Jurusan::all();
+
         $data = [
             'title' => 'Create User',
             'kelas' => $kelas,
+            'jurusan' => $jurusan,
         ];
 
         return view('create_user', $data);
-
-        return view('create_user', [
-            'kelas' => Kelas::all(),
-        ]);
-    }
+    }   
 
     public function edit($id)
     {
@@ -65,11 +67,14 @@ class UserController extends Controller
         // Mengambil data kelas untuk dropdown
         $kelas = $this->kelasModel->getKelas();
 
+        // Mengambil data jurusan untuk dropdown
+        $jurusan = Jurusan::all();
+
         // Set title untuk halaman edit
         $title = 'Edit User';
 
         // Mengirim data ke view edit_user dengan fungsi compact
-        return view('edit_user', compact('user', 'kelas', 'title'));
+        return view('edit_user', compact('user', 'kelas', 'jurusan', 'title'));
     }
 
     public function update(StoreUserRequest $request, $id)
@@ -84,6 +89,7 @@ class UserController extends Controller
         $user->nama = $validatedData['nama'];
         $user->npm = $validatedData['npm'];
         $user->kelas_id = $validatedData['kelas_id'];
+        $user->jurusan_id = $validatedData['jurusan_id'];
 
         // Cek apakah ada file foto yang di-upload
         if ($request->hasFile('foto')) {
@@ -134,11 +140,15 @@ class UserController extends Controller
         // Mencari data kelas berdasarkan kelas_id user
         $kelas = $this->kelasModel->find($user->kelas_id);
 
+        // Mendapatkan jurusan dan fakultas terkait
+        $jurusan = $user->jurusan;
+        $fakultas = $jurusan->fakultas;
+
         // Set title untuk halaman detail
         $title = 'Show User ' . $user->nama;
 
         // Mengirim data ke view show_user dengan fungsi compact
-        return view('show_user', compact('user', 'kelas', 'title'));
+        return view('show_user', compact('user', 'kelas', 'jurusan', 'fakultas', 'title'));
     }
 
     public function store(StoreUserRequest $request)
@@ -148,6 +158,7 @@ class UserController extends Controller
             'nama' => 'required',
             'npm' => 'required',
             'kelas_id' => 'required',
+            'jurusan_id' => 'required',
             'foto' => 'image|file|max:2048', // validasi foto
         ]);
 
@@ -162,6 +173,7 @@ class UserController extends Controller
                 'nama' => $request->input('nama'),
                 'npm' => $request->input('npm'),
                 'kelas_id' => $request->input('kelas_id'),
+                'jurusan_id' => $request->input('jurusan_id'),
                 'foto' => $filename, // Menyimpan nama file ke database
             ]);
         }
@@ -180,6 +192,7 @@ class UserController extends Controller
         return view('profile', [
             'nama' => $user->nama,
             'npm' => $user->npm,
+            'nama_jurusan' => $user->jurusan->nama_jurusan ?? 'Jurusan tidak ditemukan',
             'nama_kelas' => $user->kelas->nama_kelas ?? 'Kelas tidak ditemukan',
         ]);
 
